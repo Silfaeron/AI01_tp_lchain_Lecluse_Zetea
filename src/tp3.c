@@ -23,12 +23,8 @@ Element *cutNumber(char *str, int n) {
 		new->next = cutNumber(str, n+5);  // On réitère l'opération pour placer tous les chiffres dans les éléments
 	}
 	else {  // Quand on arrive à la fin de la chaîne (il y a moins de 5 chiffres)
-		Element *endNumber = malloc(sizeof(Element));
-		endNumber->data = ".";
-		endNumber->next = NULL;
-
-		new->data = str+n;  // On ajoute les derniers chiffres
-		new->next = endNumber;  // On place un élément vide à la fin qui sert de séparateur entre les différents nombres de la liste
+		new->data = "/";
+		new->next = NULL;
 	}
 
 	return new;
@@ -60,7 +56,6 @@ void insert_empty_list(List *list, char *str) {
 
 		list->head = new;
 		list->tail = goToEnd(list->head);
-		printf("%s\n", str);
 	}
 }
 
@@ -106,19 +101,20 @@ int main(int argc, char const *argv[])
 	List *l = malloc(sizeof(List));
 	initialize(l);
 
-	insert_empty_list(l, "123456");
-
+	insert_empty_list(l, "123456789");
+	printf("\nFirst :\n");
 	display(l);
-	
 	//printf("%s.%s.%s.\n", l->head->data, l->head->next->data, l->tail->data);
-	//insert_begining_list(l, "1345678748276444343372546753845765428274574");
-	
+	insert_begining_list(l, "8888888");
+	printf("\nSecond :\n");
 	display(l);
 
-	char *a = "999";
-	//printf("%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->tail->data);
-	//insert_end_list(l, "1357902468");
+	//printf("\nTST\n%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->tail->data);
+	insert_end_list(l, "1357902468387738573875982305920586028602964862");
 	//printf("%s.%s.%s.%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->head->next->next->next->next->data, l->head->next->next->next->next->next->data, l->head->next->next->next->next->next->next->data, l->tail->data);
-
+	printf("\nThird :\n");
+	display(l);
+	freeElements(l->head);
+	free(l);
 	return 0;
 }
