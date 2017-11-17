@@ -20,3 +20,4 @@ int compare(char *str1, char *str2);
 int sort(List *list);
 void display (List *list);
 void destruct(List *list);
+void freeElements(Element *e);
