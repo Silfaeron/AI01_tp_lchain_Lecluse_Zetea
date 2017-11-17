@@ -18,4 +18,5 @@ int insert_after_position(List *list, char *str, int p);
 int removeElement(List *list, int p);
 int compare(char *str1, char *str2);
 int sort(List *list);
+void display (List *list);
 void destruct(List *list);
