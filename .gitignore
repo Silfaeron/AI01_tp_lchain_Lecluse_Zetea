@@ -1,0 +1,5 @@
+/rapport/*.aux
+/rapport/*.log
+/rapport/*.gz
+/rapport/*.toc
+*.o
