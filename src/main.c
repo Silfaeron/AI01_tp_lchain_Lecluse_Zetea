@@ -40,6 +40,9 @@ int main(int argc, char const *argv[])
 
   	display(l);
 
+  	sort(l);
+  	display(l);
+
 	freeElements(l->head);
 	free(l);
 	return 0;
