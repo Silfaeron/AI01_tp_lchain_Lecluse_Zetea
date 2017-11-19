@@ -147,6 +147,9 @@ int insert_after_position(List *list, char *str, int p) {
 		else if (nbElements == p) {  // Si on veut insérer après le dernier, on utilise notre fonction insere_end_list
 			insert_end_list(list, str);
 			return 0;
+		} else if (p == 0) {
+			insert_begining_list(list, str);
+			return 0;
 		} else {  // Sinon on insère "au milieu" de la liste
 			Element *current = malloc(sizeof(Element));
 			Element *temp = malloc(sizeof(Element));
@@ -177,6 +180,7 @@ int removeElement (List *list, int p){
 			Element *pred = goToNumber(list->head, p-1);
 			Element *toDel = pred->next;
 
+			list->tail = pred;
 			pred->next = NULL;
 
 			freeElements(toDel);
@@ -235,15 +239,27 @@ int sort(List *list) {
 		return -1;
 	}
 	// On utilise un algorithme de tri à bulle
-	for (int i = 1; i < countElements(list->head); i++) {
+	for (int i = countElements(list->head); i > 0; i--) {
 		for (int j = 0; j < i; j++) {
-			char *e1 = reconstruct(goToNumber(list->head, j)->next);
-			char *e2 = reconstruct(goToNumber(list->head, j+1)->next);
+			char *e1, *e2;
+			if (j==0) {  // On est en première position
+				e1 = reconstruct(list->head);
+				e2 = reconstruct(goToNumber(list->head, 1)->next);
 
+			} else {
+				e1 = reconstruct(goToNumber(list->head, j)->next);
+				e2 = reconstruct(goToNumber(list->head, j+1)->next);
+			}
+
+			printf("E1 : %s, E2 : %s\n", e1, e2);
 			if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
 				removeElement(list, j+2);
 				insert_after_position(list, e2, j);
 			}
+
+			
+			
+			
 			/*
 			if (j == 0) {  // j est l'index du début de la liste traitée actuellement
 				Element *e1 = list->head;
