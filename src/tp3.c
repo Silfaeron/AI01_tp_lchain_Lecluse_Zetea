@@ -220,7 +220,14 @@ int sort(List *list) {
 	// On utilise un algorithme de tri à bulle
 	for (int i = 1; i < countElements(list->head); i++) {
 		for (int j = 0; j < i; j++) {
-			printf("i = %d, j = %d\n", i, j);
+			char *e1 = reconstruct(goToNumber(list->head, j)->next);
+			char *e2 = reconstruct(goToNumber(list->head, j+1)->next);
+
+			if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
+				removeElement(list, j+2);
+				insert_after_position(list, e2, j);
+			}
+			/*
 			if (j == 0) {  // j est l'index du début de la liste traitée actuellement
 				Element *e1 = list->head;
 				Element *e2 = goToNumber(list->head, 1)->next;
@@ -236,25 +243,16 @@ int sort(List *list) {
 					}
 				}
 			} else {
-				Element *e1 = goToNumber(list->head, j)->next;
-				Element *e2 = goToNumber(list->head, j+1)->next;
+				char *e1 = reconstruct(goToNumber(list->head, j)->next);
+				char *e2 = reconstruct(goToNumber(list->head, j+1)->next);
 
-				if (compare(reconstruct(e1), reconstruct(e2)) == 1) {  // Le premier > au deuxième, on les inverse
-					Element *e3 = goToNumber(e2, 1)->next;
-
-					goToNumber(list->head, j)->next = e3;  // on fait pointer le next de e1 sur le next de e2
-					goToNumber(list->head, j+1)->next = e1;  // le next de e2 sur e1
-
-					display(list);
-
-					if (!e3) {  // Si e2 était la queue de la liste, il faut mettre à jour
-						list->tail = e1;
-					}
+				if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
+					removeElement(list, j+2);
+					insert_after_position(list, e2, j);
 				}
-			}
+			}*/
 		}
 	}
-
 	return 0;
 }
 
