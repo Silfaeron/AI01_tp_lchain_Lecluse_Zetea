@@ -28,9 +28,26 @@ int main(int argc, char const *argv[])
 	printf("\nFourth :\n");
 	display(l);
 
-	removeElement(l, 4);
+	//removeElement(l, 4);
 	printf("\nFifth :\n");
 	display(l);
+
+	insert_after_position(l, "12345764376", 3);
+	printf("\nSixth :\n");
+	display(l);
+
+	insert_after_position(l, "99382974123456", 2);
+	printf("\nSeventh :\n");
+	display(l);
+
+	insert_after_position(l, "2450123456", 5);
+	printf("\nEighth :\n");
+	display(l);
+
+	insert_after_position(l, "12", 1);
+	printf("\nNineth :\n");
+	display(l);
+
 
 	printf("\nCompare a > b : %d\n", compare("9885754", "123"));
 	printf("\nCompare b > a : %d\n", compare("123", "9885754"));

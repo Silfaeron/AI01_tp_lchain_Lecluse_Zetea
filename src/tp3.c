@@ -18,10 +18,10 @@ Element *cutNumber(char *str, int n) {
 	new->next = malloc(sizeof(Element));
 
 	// Si il y a plus de 5 chiffres de str, il faut découper la chaîne
-	if (n < strlen(str) && strlen(str) >= 5) {
+	if (n < strlen(str)) {
 		strncpy(new->data, str+n, 5);  // Permet de copier le contenu de str à partir du nième charactère et sur une longueur de 5 dans new->data
 		new->next = cutNumber(str, n+5);  // On réitère l'opération pour placer tous les chiffres dans les éléments
-	}
+	} 
 	else {  // Quand on arrive à la fin de la chaîne (il y a moins de 5 chiffres)
 		new->data = "/";
 		new->next = NULL;
@@ -251,39 +251,12 @@ int sort(List *list) {
 				e2 = reconstruct(goToNumber(list->head, j+1)->next);
 			}
 
-			printf("E1 : %s, E2 : %s\n", e1, e2);
-			if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
-				removeElement(list, j+2);
-				insert_after_position(list, e2, j);
-			}
-
-			
-			
-			
-			/*
-			if (j == 0) {  // j est l'index du début de la liste traitée actuellement
-				Element *e1 = list->head;
-				Element *e2 = goToNumber(list->head, 1)->next;
-				if (compare(reconstruct(e1), reconstruct(e2)) == 1) {  // Le premier > au deuxième, on les inverse
-					Element *e3 = goToNumber(e2, 1)->next;
-
-					goToNumber(list->head, 1)->next = e3;  // on fait pointer le next de e1 sur le next de e2
-					goToNumber(list->head, 2)->next = e1;  // le next de e2 sur e1
-					list->head = e2;  // la tête est maintenant e2
-
-					if (!e3) {  // Si e2 était la queue de la liste, il faut mettre à jour
-						list->tail = e1;
-					}
-				}
-			} else {
-				char *e1 = reconstruct(goToNumber(list->head, j)->next);
-				char *e2 = reconstruct(goToNumber(list->head, j+1)->next);
-
+			if (strncmp(e2, "\0", 1) != 0) {  // e2 peut etre vide si on est à la fin de la liste.
 				if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
 					removeElement(list, j+2);
 					insert_after_position(list, e2, j);
 				}
-			}*/
+			}
 		}
 	}
 	return 0;
