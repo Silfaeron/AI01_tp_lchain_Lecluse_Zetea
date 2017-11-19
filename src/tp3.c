@@ -65,6 +65,36 @@ int countElements(Element *e) {  // renvoie la longueur totale de la liste en pa
 	return 0;
 }
 
+int countElementsOfNumber(Element *e) {  // Permet de compter de combien d'éléments est composé un nombre (jusqu'au /)
+	if (e) {
+		if (e->data[0] == '/') {
+			return 0;
+		}
+		return 1+countElementsOfNumber(e->next);
+	}
+	return 0;
+}
+
+char *reconstruct(Element *e) {
+	int taille = countElementsOfNumber(e);
+
+	Element *temp = malloc(sizeof(Element));
+	temp = e;
+
+	char *res = malloc(sizeof(taille)*5);
+
+	for (int i = 0; i < taille; i++)
+	{
+		if (strlen(temp->data) >= i%5) {
+			res[i] = temp->data[i%5];
+		}
+		if (i%5 == 4) {
+			temp = temp->next;
+		}
+	}
+	return res;
+}
+
 /*
 int getNumber(char *expr){
 	if(*expr != '\0')

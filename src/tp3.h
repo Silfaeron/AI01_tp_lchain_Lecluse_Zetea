@@ -21,3 +21,5 @@ int sort(List *list);
 void display (List *list);
 void destruct(List *list);
 void freeElements(Element *e);
+char *reconstruct(Element *e);
+Element *cutNumber(char *str, int n);
