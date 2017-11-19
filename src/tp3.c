@@ -42,6 +42,19 @@ void freeElements(Element *e) {
 	}
 }
 
+Element *goToNumber(Element *e, int p) {  // On veut renvoyer la fin du Pième nombre d'une liste
+	if (e) {  // Si l'élément n'est pas nul
+		if (e->data[0] == '/') {  // Si la valeur actuelle est un séparateur, on décrémente P.
+			p--;
+			if (p==0) {  // Si on a atteint la fin de l'élément représentant le Pième nombre, on retourne un pointeur vers cet élément
+				return e;
+			}
+		}
+		goToNumber(e->next, p);
+	}
+	return NULL;
+}
+
 
 // Définition des fonctions usuelles
 void initialize(List *list) {
@@ -82,6 +95,7 @@ void insert_end_list (List *list, char *str) {
 }
 
 int insert_after_position(List *list, char *str, int p) {
+
 	return 0;
 }
 

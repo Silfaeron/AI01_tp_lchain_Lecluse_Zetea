@@ -21,3 +21,5 @@ int sort(List *list);
 void display (List *list);
 void destruct(List *list);
 void freeElements(Element *e);
+
+Element *goToNumber(Element *e, int p);

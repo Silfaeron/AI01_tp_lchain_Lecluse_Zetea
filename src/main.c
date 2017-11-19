@@ -23,6 +23,12 @@ int main(int argc, char const *argv[])
 	//printf("%s.%s.%s.%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->head->next->next->next->next->data, l->head->next->next->next->next->next->data, l->head->next->next->next->next->next->next->data, l->tail->data);
 	printf("\nThird :\n");
 	display(l);
+
+	Element *e = malloc(sizeof(Element));
+
+	e = goToNumber(l->head, 2);
+	printf("%s\n", e->data);
+
 	freeElements(l->head);
 	free(l);
 	return 0;
