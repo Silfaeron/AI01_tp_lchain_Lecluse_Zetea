@@ -6,7 +6,7 @@
 int main(int argc, char const *argv[])
 {
 
-  printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
+  	printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
 	List *l = malloc(sizeof(List));
 	initialize(l);
 
@@ -27,6 +27,13 @@ int main(int argc, char const *argv[])
 	insert_after_position(l, "123456", 2);
 	printf("\nFourth :\n");
 	display(l);
+
+	removeElement(l, 4);
+	printf("\nFifth :\n");
+	display(l);
+
+	printf("\nCompare a > b : %d\n", compare("9885754", "123"));
+	printf("\nCompare b > a : %d\n", compare("123", "9885754"));
 
 	freeElements(l->head);
 	free(l);

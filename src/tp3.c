@@ -65,6 +65,11 @@ int countElements(Element *e) {  // renvoie la longueur totale de la liste en pa
 	return 0;
 }
 
+int getNumber(char *expr){
+	if(*expr != '\0')
+		return 10*getNumber(expr+1) + (*expr)-'0';
+	return 0;
+}
 
 // Définition des fonctions usuelles
 void initialize(List *list) {
@@ -117,7 +122,7 @@ int insert_after_position(List *list, char *str, int p) {
 		} else {  // Sinon on insère "au milieu" de la liste
 			Element *current = malloc(sizeof(Element));
 			Element *temp = malloc(sizeof(Element));
-			current = goToNumber(list->head, p);  
+			current = goToNumber(list->head, p);
 			temp = current->next;  // On stoque l'élément qui sera le suivant de celui qu'on veut insérer
 
 			Element *new = cutNumber(str, 0);  // On découpe le nombre
@@ -128,6 +133,27 @@ int insert_after_position(List *list, char *str, int p) {
 			return 0;
 		}
 	}
+}
+
+int removeElement (List *list, int p){
+	if(!is_list_empty(list) && (p <= countElements(list->head))){
+		Element *pred = goToNumber(list->head, p-1);
+		Element *toDel = pred->next;
+		Element *endDel = goToNumber(list->head, p);
+
+		pred->next = endDel->next;
+		endDel->next = NULL;
+		freeElements(toDel);
+
+		return 0;
+	}
+	return -1;
+}
+
+int compare(char *str1, char *str2){
+	if(getNumber(str1) > getNumber(str2))
+		return 1;
+	return 2;
 }
 
 void display(List *list) {
