@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
 	Element *e = malloc(sizeof(Element));
 
 	e = goToNumber(l->head, 2);
-	printf("%s\n", e->data);
+	printf("%s\n", e->next->data);
 
 	freeElements(l->head);
 	free(l);

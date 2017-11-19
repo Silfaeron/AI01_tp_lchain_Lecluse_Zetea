@@ -50,7 +50,7 @@ Element *goToNumber(Element *e, int p) {  // On veut renvoyer la fin du Pième n
 				return e;
 			}
 		}
-		goToNumber(e->next, p);
+		return goToNumber(e->next, p);
 	}
 	return NULL;
 }
