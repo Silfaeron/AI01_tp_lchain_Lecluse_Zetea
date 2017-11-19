@@ -48,12 +48,7 @@ int main(int argc, char const *argv[])
 	printf("\nNineth :\n");
 	display(l);
 
-
-	printf("\nCompare a > b : %d\n", compare("9885754", "123"));
-	printf("\nCompare b > a : %d\n", compare("123", "9885754"));
-  	printf("\nCompare a = b : %d\n", compare("123", "123"));
-
-  	printf("RECONSTRUCT 1234567890 : %s\n", reconstruct(l->head->next->next->next));
+	printf("\n\n\n\n");
 
   	display(l);
 

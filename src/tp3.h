@@ -20,6 +20,8 @@ int compare(char *str1, char *str2);
 int sort(List *list);
 void display (List *list);
 void destruct(List *list);
+
 void freeElements(Element *e);
 char *reconstruct(Element *e);
 Element *cutNumber(char *str, int n);
+Element *goToNumber(Element *e, int p);

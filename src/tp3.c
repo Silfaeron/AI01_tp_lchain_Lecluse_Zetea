@@ -240,15 +240,15 @@ int sort(List *list) {
 	}
 	// On utilise un algorithme de tri à bulle
 	for (int i = countElements(list->head); i > 0; i--) {
-		for (int j = 0; j < i; j++) {
+		for (int j = 0; j < i-1; j++) {
 			char *e1, *e2;
 			if (j==0) {  // On est en première position
 				e1 = reconstruct(list->head);
 				e2 = reconstruct(goToNumber(list->head, 1)->next);
-
 			} else {
 				e1 = reconstruct(goToNumber(list->head, j)->next);
 				e2 = reconstruct(goToNumber(list->head, j+1)->next);
+				printf("E1 : %s, E2 : %s, j : %d, i : %d\n", e1, e2, j, i);
 			}
 
 			if (strncmp(e2, "\0", 1) != 0) {  // e2 peut etre vide si on est à la fin de la liste.
