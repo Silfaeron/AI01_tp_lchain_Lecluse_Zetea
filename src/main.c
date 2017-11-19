@@ -24,10 +24,9 @@ int main(int argc, char const *argv[])
 	printf("\nThird :\n");
 	display(l);
 
-	Element *e = malloc(sizeof(Element));
-
-	e = goToNumber(l->head, 2);
-	printf("%s\n", e->next->data);
+	insert_after_position(l, "123456", 2);
+	printf("\nFourth :\n");
+	display(l);
 
 	freeElements(l->head);
 	free(l);

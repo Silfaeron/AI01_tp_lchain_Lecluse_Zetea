@@ -55,6 +55,16 @@ Element *goToNumber(Element *e, int p) {  // On veut renvoyer la fin du Pième n
 	return NULL;
 }
 
+int countElements(Element *e) {  // renvoie la longueur totale de la liste en partant d'un élément. (Nombre de next successifs faisable)
+	if (e) {
+		if (e->data[0] == '/') {  // Les éléments sont séparés par des '/', on compte donc leur nombre
+			return 1+countElements(e->next);
+		}
+		return countElements(e->next);
+	}
+	return 0;
+}
+
 
 // Définition des fonctions usuelles
 void initialize(List *list) {
@@ -95,8 +105,29 @@ void insert_end_list (List *list, char *str) {
 }
 
 int insert_after_position(List *list, char *str, int p) {
+	if (is_list_empty(list)) {
+		return -1;  // Liste vide
+	}
+	else {
+		int nbElements = countElements(list->head);
+		if (nbElements < p) return -1;  // Pas assez d'éléments dans la liste
+		else if (nbElements == p) {  // Si on veut insérer après le dernier, on utilise notre fonction insere_end_list
+			insert_end_list(list, str);
+			return 0;
+		} else {  // Sinon on insère "au milieu" de la liste
+			Element *current = malloc(sizeof(Element));
+			Element *temp = malloc(sizeof(Element));
+			current = goToNumber(list->head, p);  
+			temp = current->next;  // On stoque l'élément qui sera le suivant de celui qu'on veut insérer
 
-	return 0;
+			Element *new = cutNumber(str, 0);  // On découpe le nombre
+
+			current->next = new;
+			goToEnd(new)->next = temp;
+
+			return 0;
+		}
+	}
 }
 
 void display(List *list) {
