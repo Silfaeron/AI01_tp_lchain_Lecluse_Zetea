@@ -65,11 +65,12 @@ int countElements(Element *e) {  // renvoie la longueur totale de la liste en pa
 	return 0;
 }
 
+/*
 int getNumber(char *expr){
 	if(*expr != '\0')
 		return 10*getNumber(expr+1) + (*expr)-'0';
 	return 0;
-}
+}*/
 
 // Définition des fonctions usuelles
 void initialize(List *list) {
@@ -150,9 +151,27 @@ int removeElement (List *list, int p){
 	return -1;
 }
 
+/*
 int compare(char *str1, char *str2){
 	if(getNumber(str1) > getNumber(str2))
 		return 1;
+	return 2;
+}*/
+
+int compare(char *str1, char *str2){
+	if(strlen(str1) > strlen(str2))
+		return 1;
+	else if(strlen(str1) < strlen(str2))
+		return 2;
+
+	int i;
+	for(i=0; *(str1+i) != '\n'; i++){
+		if(*(str1+i)-'0' > *(str2+i)-'0')
+			return 1;
+		else if(*(str1+i)-'0' < *(str2+i)-'0')
+			return 2;
+	}
+
 	return 2;
 }
 

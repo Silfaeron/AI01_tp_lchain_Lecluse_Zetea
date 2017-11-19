@@ -34,6 +34,7 @@ int main(int argc, char const *argv[])
 
 	printf("\nCompare a > b : %d\n", compare("9885754", "123"));
 	printf("\nCompare b > a : %d\n", compare("123", "9885754"));
+  printf("\nCompare a = b : %d\n", compare("123", "123"));
 
 	freeElements(l->head);
 	free(l);
