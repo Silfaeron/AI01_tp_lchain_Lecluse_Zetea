@@ -36,7 +36,9 @@ int main(int argc, char const *argv[])
 	printf("\nCompare b > a : %d\n", compare("123", "9885754"));
   	printf("\nCompare a = b : %d\n", compare("123", "123"));
 
-  	printf("RECONSTRUCT 1234567890 : %s\n", reconstruct(cutNumber("1234567890", 0)));
+  	printf("RECONSTRUCT 1234567890 : %s\n", reconstruct(l->head->next->next->next));
+
+  	display(l);
 
 	freeElements(l->head);
 	free(l);

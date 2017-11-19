@@ -78,18 +78,15 @@ int countElementsOfNumber(Element *e) {  // Permet de compter de combien d'élé
 char *reconstruct(Element *e) {
 	int taille = countElementsOfNumber(e);
 
-	Element *temp = malloc(sizeof(Element));
-	temp = e;
-
 	char *res = malloc(sizeof(taille)*5);
 
-	for (int i = 0; i < taille; i++)
+	for (int i = 0; i < taille*5; i++)
 	{
-		if (strlen(temp->data) >= i%5) {
-			res[i] = temp->data[i%5];
+		if (strlen(e->data) >= i%5) {
+			res[i] = e->data[i%5];
 		}
 		if (i%5 == 4) {
-			temp = temp->next;
+			e = e->next;
 		}
 	}
 	return res;
