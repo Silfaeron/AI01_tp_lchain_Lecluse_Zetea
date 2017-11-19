@@ -225,10 +225,13 @@ int sort(List *list) {
 				Element *e2 = goToNumber(list->head, 1)->next;
 				if (compare(reconstruct(e1), reconstruct(e2)) == 1) {  // Le premier > au deuxième, on les inverse
 					Element *e3 = goToNumber(e2, 1)->next;
-					if (e3) { // Si le suivant de e2 n'est pas null, on fait pointer le next de e1 dessus
-						goToNumber(list->head, 1)->next = e3;
-						goToNumber(list->head, 2)->next = e1;
-						list->head = e2;
+
+					goToNumber(list->head, 1)->next = e3;  // on fait pointer le next de e1 sur le next de e2
+					goToNumber(list->head, 2)->next = e1;  // le next de e2 sur e1
+					list->head = e2;  // la tête est maintenant e2
+					
+					if (!e3) {  // Si e2 était la queue de la liste, il faut mettre à jour
+						list->tail = e1;
 					}
 				}
 			}
