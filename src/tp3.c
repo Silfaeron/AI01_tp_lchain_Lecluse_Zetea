@@ -165,6 +165,23 @@ int insert_after_position(List *list, char *str, int p) {
 
 int removeElement (List *list, int p){
 	if(!is_list_empty(list) && (p <= countElements(list->head))){
+		if(p-1 <= 0){
+			Element *toDel = list->head;
+			Element *endDel = goToNumber(list->head, p);
+
+			list->head = endDel->next;
+			endDel->next = NULL;
+			freeElements(toDel);
+			return 0;
+		}else if(p == countElements(list->head)){
+			Element *pred = goToNumber(list->head, p-1);
+			Element *toDel = pred->next;
+
+			pred->next = NULL;
+
+			freeElements(toDel);
+			return 0;
+		}
 		Element *pred = goToNumber(list->head, p-1);
 		Element *toDel = pred->next;
 		Element *endDel = goToNumber(list->head, p);
@@ -237,7 +254,7 @@ int sort(List *list) {
 					goToNumber(list->head, 1)->next = e3;  // on fait pointer le next de e1 sur le next de e2
 					goToNumber(list->head, 2)->next = e1;  // le next de e2 sur e1
 					list->head = e2;  // la tête est maintenant e2
-					
+
 					if (!e3) {  // Si e2 était la queue de la liste, il faut mettre à jour
 						list->tail = e1;
 					}
@@ -255,11 +272,3 @@ int sort(List *list) {
 	}
 	return 0;
 }
-
-
-
-
-
-
-
-
