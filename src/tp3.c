@@ -75,18 +75,18 @@ int countElementsOfNumber(Element *e) {  // Permet de compter de combien d'élé
 	return 0;
 }
 
-char *reconstruct(Element *e) {
-	int taille = countElementsOfNumber(e);
+char *reconstruct(Element *e) {  // Reconstruit un nombre en chaîne de caractère à partir de ses éléments
+	int taille = countElementsOfNumber(e);  // On compte le nombre d'éléments qui représentent ce nombre
 
 	char *res = malloc(sizeof(taille)*5);
 
 	for (int i = 0; i < taille*5; i++)
 	{
 		if (strlen(e->data) >= i%5) {
-			res[i] = e->data[i%5];
+			res[i] = e->data[i%5];  // On ajoute les charactères 1 par 1
 		}
 		if (i%5 == 4) {
-			e = e->next;
+			e = e->next;  // Tous les 5 charactères, on fait un next pour passer à l'élément suivant.
 		}
 	}
 	return res;
@@ -212,3 +212,27 @@ void display(List *list) {
 		printf("\n");
 	}
 }
+
+int sort(List *list) {
+	if (is_list_empty(list)) {
+		return -1;
+	}
+	// On utilise un algorithme de tri à bulle
+	for (int i = 1; i < countElements(list->head); i++) {
+		for (int j = 0; j < i; j++) {
+			if (j == 0) {
+				if (compare(reconstruct(list->head), reconstruct(goToNumber(1)->next))) == 1{  // Le premier > au deuxième, on les inverse
+					
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
