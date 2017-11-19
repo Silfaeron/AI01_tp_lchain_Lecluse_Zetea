@@ -221,8 +221,15 @@ int sort(List *list) {
 	for (int i = 1; i < countElements(list->head); i++) {
 		for (int j = 0; j < i; j++) {
 			if (j == 0) {
-				if (compare(reconstruct(list->head), reconstruct(goToNumber(1)->next))) == 1{  // Le premier > au deuxième, on les inverse
-					
+				Element *e1 = list->head;
+				Element *e2 = goToNumber(list->head, 1)->next;
+				if (compare(reconstruct(e1), reconstruct(e2)) == 1) {  // Le premier > au deuxième, on les inverse
+					Element *e3 = goToNumber(e2, 1)->next;
+					if (e3) { // Si le suivant de e2 n'est pas null, on fait pointer le next de e1 dessus
+						goToNumber(list->head, 1)->next = e3;
+						goToNumber(list->head, 2)->next = e1;
+						list->head = e2;
+					}
 				}
 			}
 		}
