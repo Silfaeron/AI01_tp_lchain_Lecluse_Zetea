@@ -21,7 +21,7 @@ Element *cutNumber(char *str, int n) {
 	if (n < strlen(str)) {
 		strncpy(new->data, str+n, 5);  // Permet de copier le contenu de str à partir du nième charactère et sur une longueur de 5 dans new->data
 		new->next = cutNumber(str, n+5);  // On réitère l'opération pour placer tous les chiffres dans les éléments
-	} 
+	}
 	else {  // Quand on arrive à la fin de la chaîne (il y a moins de 5 chiffres)
 		new->data = "/";
 		new->next = NULL;
@@ -138,8 +138,8 @@ void insert_end_list (List *list, char *str) {
 }
 
 int insert_after_position(List *list, char *str, int p) {
-	if (is_list_empty(list)) {
-		return -1;  // Liste vide
+	if (is_list_empty(list) || p < 0) {
+		return -1;  // Liste vide ou mauvaise pos
 	}
 	else {
 		int nbElements = countElements(list->head);
@@ -223,17 +223,6 @@ int compare(char *str1, char *str2){
 	return 2;
 }
 
-void display(List *list) {
-	if (is_list_empty(list)) {
-		printf("EMPTY LIST\n");
-	} else {
-		for (Element *e = list->head; e; e=e->next) {
-			printf("%s ", e->data);
-		}
-		printf("\n");
-	}
-}
-
 int sort(List *list) {
 	if (is_list_empty(list)) {
 		return -1;
@@ -248,7 +237,7 @@ int sort(List *list) {
 			} else {
 				e1 = reconstruct(goToNumber(list->head, j)->next);
 				e2 = reconstruct(goToNumber(list->head, j+1)->next);
-				printf("E1 : %s, E2 : %s, j : %d, i : %d\n", e1, e2, j, i);
+				//printf("E1 : %s, E2 : %s, j : %d, i : %d\n", e1, e2, j, i);
 			}
 
 			if (strncmp(e2, "\0", 1) != 0) {  // e2 peut etre vide si on est à la fin de la liste.
@@ -260,4 +249,20 @@ int sort(List *list) {
 		}
 	}
 	return 0;
+}
+
+void display(List *list) {
+	if (is_list_empty(list)) {
+		printf("EMPTY LIST\n");
+	} else {
+		for (Element *e = list->head; e; e=e->next) {
+			printf("%s ", e->data);
+		}
+		printf("\n");
+	}
+}
+
+void destruct(List *list){
+	freeElements(list->head);
+	free(list);
 }
