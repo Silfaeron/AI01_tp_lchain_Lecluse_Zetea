@@ -67,7 +67,6 @@ int main(int argc, char const *argv[]){
         "5 - trier la liste par ordre croissant\n\t\t" \
         "6 - afficher l'état actuel de la liste\n\t\t" \
         "7 - detruire la liste\n\t\t" \
-        "8 - initialiser liste (si detruite)\n\t\t" \
         "0 - quitter\n\n\tVotre choix : ");
 
     scanf("%d", &choice);
