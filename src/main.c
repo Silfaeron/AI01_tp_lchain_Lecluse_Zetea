@@ -32,19 +32,31 @@ char *getInput(){
   return chaine;
 }
 
+int getChoice(){ // Permet d'avoir une saisie correcte quant au choix de l'utilisateur
+  char *ch = malloc(5*sizeof(char));
+  int choice = -1;
+
+  scanf("%s", ch);
+
+  if(strlen(ch) > 1) return choice; // on retourne -1 si c'est une chaine de characteres qui a ete rentree
+  if(*(ch)-'0' < 0 || *(ch)-'0' > 7) return choice; // on retourne -1 si le choix n'est pas dans l'intervalle adequat ou si ce n'est pas un chiffre
+
+  choice = *(ch)-'0';
+  free(ch);
+
+  return choice; // le choix est correct, on le retourne sous forme d'int
+}
+
 // Cette fonction permet de récupérer la position que l'utilisateur veut indiquer
 // Ici n est le nombre de nombres dans la liste
 int askPos(int n, int *p){
   printf("\nVeuillez indiquer la position souhaitee : ");
-  if(scanf("%d", p) == 0) return 0; // si le scanf a détécté un char en début de saisie, la saisie est invalidée
+  *p = getChoice();
+  if(*p == -1) return 0; // l'input n'est pas valide, la saisie est invalidee
 
-  if(*p > n || *p < 0) return 0; // si la position n'est pas valide, la saisie est invalidée
+  if(*p > n || *p < 0) return 0; // si la position n'est pas valide, la saisie est invalidee
 
   return 1;
-  /* Ce bout de code peut être ammélioré car si par exemple l'utilisateur entre "1C2",
-    on récupérera quand même 1. Pour l'amélioration, il faudrait récupérer une chaine de characteres
-    et vérifier charactere par charactere pour s'assurer de la validité de l'input.
-  */
 }
 
 
@@ -70,7 +82,7 @@ int main(int argc, char const *argv[]){
         "7 - detruire la liste\n\t\t" \
         "0 - quitter\n\n\tVotre choix : ");
 
-    scanf("%d", &choice);
+    choice = getChoice();
 
     switch(choice) {
       case 0 :
@@ -78,21 +90,26 @@ int main(int argc, char const *argv[]){
         break;
       case 1 :
         insert_begining_list(l, getInput());
+        printf("\nInsertion en debut de liste...\n");
         break;
       case 2 :
         insert_end_list(l, getInput());
+        printf("\nInsertion en fin de liste...\n");
         break;
       case 3 :
-        if(askPos(countElements(l->head), &pos) == 1){
-          printf("\nInsertion en cours....\n");
-          insert_after_position(l, getInput(), pos);
-        }else printf("Position non valide, retour au menu principal...\n");
+        if(!is_list_empty(l)){
+          if(askPos(countElements(l->head), &pos) == 1){
+            insert_after_position(l, getInput(), pos);
+            printf("\nInsertion en cours...\n");
+          }else printf("Position non valide, retour au menu principal...\n");
+        }else
+          printf("\nLa liste etant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 4 :
         if(askPos(countElements(l->head), &pos) == 1){
           printf("\nSuppression en cours...\n");
           removeElement(l, pos);
-        }else printf("Position non valide, retour au menu principal...\n");
+        }else printf("\nPosition non valide, retour au menu principal...\n");
         break;
       case 5 :
         printf("\nTri en cours...\n" );

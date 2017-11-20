@@ -15,6 +15,7 @@ typedef struct list {
 	Element *tail;
 } List;
 
+bool is_list_empty(List *list);
 void initialize(List *list);
 int countElements(Element *e);
 void insert_begining_list(List *list, char *str);
