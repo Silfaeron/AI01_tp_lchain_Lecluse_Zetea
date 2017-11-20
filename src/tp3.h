@@ -1,5 +1,10 @@
 /* Auteurs : ZETEA Lucas & LÉCLUSE Thomas */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
 typedef struct element {
 	char *data;
 	struct element *next;

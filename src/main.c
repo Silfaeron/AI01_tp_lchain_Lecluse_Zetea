@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/* Auteurs : ZETEA Lucas & LÉCLUSE Thomas */
+
 #include "tp3.h"
 
+
+// Permet de récupérer le nombre de l'utilisateur
+// On ne connait pas forcément la taille de ce nombre, d'où l'intérêt d'avoir une telle fonction
 void getInput(char *chaine){
   chaine = realloc(chaine, sizeof(char));
   int c;
@@ -10,76 +12,31 @@ void getInput(char *chaine){
   printf("\nVeuillez entrer votre nombre : ");
 
   c = getchar();
-  while((c = getchar()) != '\n' && c != EOF){
+  while((c = getchar()) != '\n' && c != EOF){ // tant que l'utilisateur n'a pas appuyé sur entrée, on continue de lire son input
       *(chaine+i) = c;
       i++;
       chaine = realloc(chaine, i+1);
   }
-  *(chaine+i) = '\0';
+  *(chaine+i) = '\0'; // on rajoute à la fin de la chaine le charactere de terminaison (utile pour la suite)
 }
 
+// Cette fonction permet de récupérer la position que l'utilisateur veut indiquer
+// Ici n est le nombre de nombres dans la liste
 int askPos(int n, int *p){
   printf("\nVeuillez indiquer la position souhaitee : ");
-  if(scanf("%d", p) == 0) return 0;
+  if(scanf("%d", p) == 0) return 0; // si le scanf a détécté un char en début de saisie, la saisie est invalidée
 
-  if(*p > n || *p < 0) return 0;
+  if(*p > n || *p < 0) return 0; // si la position n'est pas valide, la saisie est invalidée
 
   return 1;
+  /* Ce bout de code peut être ammélioré car si par exemple l'utilisateur entre "1C2",
+    on récupérera quand même 1. Pour l'amélioration, il faudrait récupérer une chaine de characteres
+    et vérifier charactere par charactere pour s'assurer de la validité de l'input.
+  */
 }
 
 
 int main(int argc, char const *argv[]){
-  /*
-  printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
-	List *l = malloc(sizeof(List));
-	initialize(l);
-
-	insert_empty_list(l, "123456789");
-	printf("\nFirst :\n");
-	display(l);
-	//printf("%s.%s.%s.\n", l->head->data, l->head->next->data, l->tail->data);
-	insert_begining_list(l, "8888888");
-	printf("\nSecond :\n");
-	display(l);
-
-	//printf("\nTST\n%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->tail->data);
-	insert_end_list(l, "1357902468387738573875982305920586028602964862");
-	//printf("%s.%s.%s.%s.%s.%s.%s.%s.\n", l->head->data, l->head->next->data, l->head->next->next->data, l->head->next->next->next->data, l->head->next->next->next->next->data, l->head->next->next->next->next->next->data, l->head->next->next->next->next->next->next->data, l->tail->data);
-	printf("\nThird :\n");
-	display(l);
-
-	insert_after_position(l, "123456", 2);
-	printf("\nFourth :\n");
-	display(l);
-
-	//removeElement(l, 4);
-	printf("\nFifth :\n");
-	display(l);
-
-	insert_after_position(l, "12345764376", 3);
-	printf("\nSixth :\n");
-	display(l);
-
-	insert_after_position(l, "99382974123456", 2);
-	printf("\nSeventh :\n");
-	display(l);
-
-	insert_after_position(l, "2450123456", 5);
-	printf("\nEighth :\n");
-	display(l);
-
-	insert_after_position(l, "12", 1);
-	printf("\nNineth :\n");
-	display(l);
-
-	printf("\n\n\n\n");
-
-  display(l);
-
-	sort(l);
-  display(l);
-
-	destruct(l);*/
 
   List *l = malloc(sizeof(List));
   initialize(l);
@@ -149,6 +106,6 @@ int main(int argc, char const *argv[]){
     }
     display(l);
   }
-  
+
   destruct(l);
 }

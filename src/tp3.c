@@ -1,12 +1,9 @@
 /* Auteurs : ZETEA Lucas & LÉCLUSE Thomas */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
 #include "tp3.h"
 
-// Définition des fonctions de service utiles
+//////////////////////// Définition des fonctions de service utiles ////////////////////////
+
 bool is_list_empty(List *list) {  // Renvoie si la liste d'éléments est vide (si tête=queue)
 	return list->head == list->tail;
 }
@@ -35,7 +32,7 @@ Element *goToEnd(Element *e) {  // Renvoie un pointeur sur le dernier élément 
 	return e;
 }
 
-void freeElements(Element *e) {
+void freeElements(Element *e) { // Va permettre de "free" tous les éléments à partir de l'élément donnée (lui-même étant "free" au final)
 	if (e) {
 		freeElements(e->next);
 		free(e);
@@ -92,14 +89,9 @@ char *reconstruct(Element *e) {  // Reconstruit un nombre en chaîne de caractè
 	return res;
 }
 
-/*
-int getNumber(char *expr){
-	if(*expr != '\0')
-		return 10*getNumber(expr+1) + (*expr)-'0';
-	return 0;
-}*/
+//////////////////////// Définition des fonctions usuelles ////////////////////////
 
-// Définition des fonctions usuelles
+
 void initialize(List *list) {
 	Element *new = malloc(sizeof(Element));
 	list->head = new;
@@ -166,18 +158,19 @@ int insert_after_position(List *list, char *str, int p) {
 	}
 }
 
-int removeElement (List *list, int p){
-	if(!is_list_empty(list) && (p <= countElements(list->head))){
-		if(p-1 <= 0){
-			Element *toDel = list->head;
-			Element *endDel = goToNumber(list->head, p);
+int removeElement (List *list, int p){ // Permet de supprimer le nombre à l'indice p donnée
+	if(!is_list_empty(list) && (p <= countElements(list->head))){ // on vérifie que la liste n'est pas vide et que l'indice est bien inférieur au nombre de nombres présents dans la liste
+		if(p-1 == 0){ // on distingue le cas où on veut supprimer le premier nombre
+			Element *toDel = list->head; // le premier élément du nombre à supprimer
+			Element *endDel = goToNumber(list->head, p); // le dernier élément du nombre à supprimer, soit l'élément portant '/' en data
 
 			list->head = endDel->next;
-			endDel->next = NULL;
+			endDel->next = NULL; // va permettre d'employer freeElements pour free facilement les éléments du nombre
+
 			freeElements(toDel);
 			return 0;
-		}else if(p == countElements(list->head)){
-			Element *pred = goToNumber(list->head, p-1);
+		}else if(p == countElements(list->head)){ // on distingue le cas où on veut supprimer le dernier nombre
+			Element *pred = goToNumber(list->head, p-1); // le dernier élément du nombre se trouvant avant le nombre à supprimer
 			Element *toDel = pred->next;
 
 			list->tail = pred;
@@ -186,6 +179,8 @@ int removeElement (List *list, int p){
 			freeElements(toDel);
 			return 0;
 		}
+		// Enfin on arrive ici si le nombre n'est ni au début ni à la fin de la liste
+		// la signification des variables est donné plus haut...
 		Element *pred = goToNumber(list->head, p-1);
 		Element *toDel = pred->next;
 		Element *endDel = goToNumber(list->head, p);
@@ -199,19 +194,14 @@ int removeElement (List *list, int p){
 	return -1;
 }
 
-/*
-int compare(char *str1, char *str2){
-	if(getNumber(str1) > getNumber(str2))
-		return 1;
-	return 2;
-}*/
-
-int compare(char *str1, char *str2){
-	if(strlen(str1) > strlen(str2))
+// Ce tp étant réalisé pour manipuler de très grand int pour lesquels nous ne pouvons utiliser le type int, il faut garder les nombres sous la forme de chaines de characteres
+int compare(char *str1, char *str2){ // Va permettre de comparer deux nombres qui sont sous forme de chaines de characteres
+	if(strlen(str1) > strlen(str2)) // si la taille de la première chaine représentant le premier et plus grande que celle du second, cela signifie que le premier "nombre" est plus grand
 		return 1;
 	else if(strlen(str1) < strlen(str2))
 		return 2;
 
+	// ici nous sommes dans le cas où les deux chaines ont la même longueur, il faut alors regarder charactere par charactere pour déterminer laquelle est la plus grande
 	int i;
 	for(i=0; *(str1+i) != '\0'; i++){
 		if(*(str1+i)-'0' > *(str2+i)-'0')
@@ -237,7 +227,6 @@ int sort(List *list) {
 			} else {
 				e1 = reconstruct(goToNumber(list->head, j)->next);
 				e2 = reconstruct(goToNumber(list->head, j+1)->next);
-				//printf("E1 : %s, E2 : %s, j : %d, i : %d\n", e1, e2, j, i);
 			}
 
 			if (strncmp(e2, "\0", 1) != 0) {  // e2 peut etre vide si on est à la fin de la liste.
@@ -251,19 +240,19 @@ int sort(List *list) {
 	return 0;
 }
 
-void display(List *list) {
-	if (is_list_empty(list)) {
+void display(List *list) { // Permet d'afficher l'état de la liste
+	if (is_list_empty(list)) { // si la liste est vide, EMPTY LIST est affiché
 		printf("EMPTY LIST\n");
 	} else {
-		for (Element *e = list->head; e; e=e->next) {
+		for (Element *e = list->head; e; e=e->next) { // un simple for pour itérer à traver la liste
 			printf("%s ", e->data);
 		}
 		printf("\n");
 	}
 }
 
-void destruct(List *list){
-		if(!is_list_empty(list))
+void destruct(List *list){ // Permet de "détruire" la liste
+		if(!is_list_empty(list)) // si la liste n'est pas vide, cela signifie qu'on doit free les éléments à l'intérieur
 			freeElements(list->head);
-		free(list);
+		free(list); // on termine en libérant la mémoire allouée pour la liste
 }
