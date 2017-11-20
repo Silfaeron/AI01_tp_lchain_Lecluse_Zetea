@@ -5,8 +5,8 @@
 
 // Permet de récupérer le nombre de l'utilisateur
 // On ne connait pas forcément la taille de ce nombre, d'où l'intérêt d'avoir une telle fonction
-void getInput(char *chaine){
-  chaine = realloc(chaine, sizeof(char));
+char *getInput(){
+  char *chaine = malloc(sizeof(char));
   int c;
   int i = 0;
   bool verif = true;
@@ -28,6 +28,8 @@ void getInput(char *chaine){
     }
   }
   *(chaine+i) = '\0'; // on rajoute à la fin de la chaine le charactere de terminaison (utile pour la suite)
+
+  return chaine;
 }
 
 // Cette fonction permet de récupérer la position que l'utilisateur veut indiquer
@@ -53,7 +55,6 @@ int main(int argc, char const *argv[]){
 
   int choice = 1;
   int pos = 0;
-  char *chaine = malloc(sizeof(char));
 
   printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
   printf("Une liste a ete initalisee pour vous (elle est vide)....\n");
@@ -76,22 +77,18 @@ int main(int argc, char const *argv[]){
         printf("\nArret en cours...affichage de l'etat puis destruction de la liste....\n");
         break;
       case 1 :
-        getInput(chaine);
-        insert_begining_list(l, chaine);
+        insert_begining_list(l, getInput());
         break;
       case 2 :
-        getInput(chaine);
-        insert_end_list(l, chaine);
+        insert_end_list(l, getInput());
         break;
       case 3 :
-        getInput(chaine);
         if(askPos(countElements(l->head), &pos) == 1){
           printf("\nInsertion en cours....\n");
-          insert_after_position(l, chaine, pos);
+          insert_after_position(l, getInput(), pos);
         }else printf("Position non valide, retour au menu principal...\n");
         break;
       case 4 :
-        getInput(chaine);
         if(askPos(countElements(l->head), &pos) == 1){
           printf("\nSuppression en cours...\n");
           removeElement(l, pos);
@@ -118,5 +115,4 @@ int main(int argc, char const *argv[]){
   }
 
   destruct(l);
-  free(chaine);
 }
