@@ -263,6 +263,7 @@ void display(List *list) {
 }
 
 void destruct(List *list){
-	freeElements(list->head);
-	free(list);
+		if(!is_list_empty(list))
+			freeElements(list->head);
+		free(list);
 }

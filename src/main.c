@@ -4,28 +4,27 @@
 #include "tp3.h"
 
 void getInput(char *chaine){
-  if(chaine != NULL) free(chaine);
-
-  chaine = malloc(sizeof(char));
-  char c;
+  chaine = realloc(chaine, sizeof(char));
+  int c;
   int i = 0;
+  printf("\nVeuillez entrer votre nombre : ");
 
-  printf("Veuillez entrer votre nombre : \n");
-
-  while(*(chaine+i) != '\n'){
-    c = getchar();
-    i++;
-    *(chaine+i) = c;
-    chaine = realloc(chaine, i+1);
+  c = getchar();
+  while((c = getchar()) != '\n' && c != EOF){
+      *(chaine+i) = c;
+      i++;
+      chaine = realloc(chaine, i+1);
   }
-  chaine[i] = '\0';
+  *(chaine+i) = '\0';
 }
 
 int askPos(int n, int *p){
   printf("\nVeuillez indiquer la position souhaitee : ");
-  scanf("%d", p);
+  if(scanf("%d", p) == 0) return 0;
 
-  if(*p > n || *p < 0 ||)
+  if(*p > n || *p < 0) return 0;
+
+  return 1;
 }
 
 
@@ -87,7 +86,7 @@ int main(int argc, char const *argv[]){
 
   int choice = 1;
   int pos = 0;
-  char *chaine = NULL;
+  char *chaine = malloc(sizeof(char));
 
   printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
   printf("Une liste a ete initalisee pour vous (elle est vide)....\n");
@@ -101,13 +100,14 @@ int main(int argc, char const *argv[]){
         "5 - trier la liste par ordre croissant\n\t\t" \
         "6 - afficher l'état actuel de la liste\n\t\t" \
         "7 - detruire la liste\n\t\t" \
+        "8 - initialiser liste (si detruite)\n\t\t" \
         "0 - quitter\n\n\tVotre choix : ");
 
     scanf("%d", &choice);
 
   switch(choice) {
     case 0 :
-      printf("\nArret en cours...destruction de la liste....\n");
+      printf("\nArret en cours...affichage de l'etat puis destruction de la liste....\n");
       break;
     case 1 :
       getInput(chaine);
@@ -119,18 +119,17 @@ int main(int argc, char const *argv[]){
       break;
     case 3 :
       getInput(chaine);
-      if(askPos(countElements(l), &pos) == 1){
+      if(askPos(countElements(l->head), &pos) == 1){
         printf("\nInsertion en cours....\n");
         insert_after_position(l, chaine, pos);
       }else printf("Position non valide, retour au menu principal...\n");
       break;
     case 4 :
       getInput(chaine);
-      if(askPos(countElements(l), &pos) == 1){
+      if(askPos(countElements(l->head), &pos) == 1){
         printf("\nSuppression en cours...\n");
         removeElement(l, pos);
       }else printf("Position non valide, retour au menu principal...\n");
-      printf("You passed\n" );
       break;
     case 5 :
       printf("\nTri en cours...\n" );
@@ -138,18 +137,18 @@ int main(int argc, char const *argv[]){
       break;
     case 6 :
       printf("\nEtat de la liste :\n" );
-      display(l);
       break;
     case 7 :
-      printf("\nDestruction de la liste...\n" );
+      printf("\nDestruction de la liste...retour a l'etat initial...\n" );
       destruct(l);
+      l = malloc(sizeof(List));
+      initialize(l);
       break;
     default :
-      printf("Votre choix n'est pas valide...reaffichage du menu principal...\n" );
+      printf("\nVotre choix n'est pas valide...reaffichage du menu principal...\n" );
     }
     display(l);
   }
-
+  
   destruct(l);
-	return 0;
 }
