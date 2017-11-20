@@ -9,13 +9,23 @@ void getInput(char *chaine){
   chaine = realloc(chaine, sizeof(char));
   int c;
   int i = 0;
+  bool verif = true;
   printf("\nVeuillez entrer votre nombre : ");
 
   c = getchar();
   while((c = getchar()) != '\n' && c != EOF){ // tant que l'utilisateur n'a pas appuyé sur entrée, on continue de lire son input
+    if(verif){
+      if(c != '0' && c-'0'>=0 && c-'0'<=9){
+        *(chaine+i) = c;
+        i++;
+        chaine = realloc(chaine, i+1);
+        verif = false;
+      }
+    }else if(c-'0'>=0 && c-'0'<=9){
       *(chaine+i) = c;
       i++;
       chaine = realloc(chaine, i+1);
+    }
   }
   *(chaine+i) = '\0'; // on rajoute à la fin de la chaine le charactere de terminaison (utile pour la suite)
 }
@@ -62,50 +72,52 @@ int main(int argc, char const *argv[]){
 
     scanf("%d", &choice);
 
-  switch(choice) {
-    case 0 :
-      printf("\nArret en cours...affichage de l'etat puis destruction de la liste....\n");
-      break;
-    case 1 :
-      getInput(chaine);
-      insert_begining_list(l, chaine);
-      break;
-    case 2 :
-      getInput(chaine);
-      insert_end_list(l, chaine);
-      break;
-    case 3 :
-      getInput(chaine);
-      if(askPos(countElements(l->head), &pos) == 1){
-        printf("\nInsertion en cours....\n");
-        insert_after_position(l, chaine, pos);
-      }else printf("Position non valide, retour au menu principal...\n");
-      break;
-    case 4 :
-      getInput(chaine);
-      if(askPos(countElements(l->head), &pos) == 1){
-        printf("\nSuppression en cours...\n");
-        removeElement(l, pos);
-      }else printf("Position non valide, retour au menu principal...\n");
-      break;
-    case 5 :
-      printf("\nTri en cours...\n" );
-      sort(l);
-      break;
-    case 6 :
-      printf("\nEtat de la liste :\n" );
-      break;
-    case 7 :
-      printf("\nDestruction de la liste...retour a l'etat initial...\n" );
-      destruct(l);
-      l = malloc(sizeof(List));
-      initialize(l);
-      break;
-    default :
-      printf("\nVotre choix n'est pas valide...reaffichage du menu principal...\n" );
-    }
+    switch(choice) {
+      case 0 :
+        printf("\nArret en cours...affichage de l'etat puis destruction de la liste....\n");
+        break;
+      case 1 :
+        getInput(chaine);
+        insert_begining_list(l, chaine);
+        break;
+      case 2 :
+        getInput(chaine);
+        insert_end_list(l, chaine);
+        break;
+      case 3 :
+        getInput(chaine);
+        if(askPos(countElements(l->head), &pos) == 1){
+          printf("\nInsertion en cours....\n");
+          insert_after_position(l, chaine, pos);
+        }else printf("Position non valide, retour au menu principal...\n");
+        break;
+      case 4 :
+        getInput(chaine);
+        if(askPos(countElements(l->head), &pos) == 1){
+          printf("\nSuppression en cours...\n");
+          removeElement(l, pos);
+        }else printf("Position non valide, retour au menu principal...\n");
+        break;
+      case 5 :
+        printf("\nTri en cours...\n" );
+        sort(l);
+        break;
+      case 6 :
+        printf("\nEtat de la liste :\n" );
+        break;
+      case 7 :
+        printf("\nDestruction de la liste...retour a l'etat initial...\n" );
+        destruct(l);
+        l = malloc(sizeof(List));
+        initialize(l);
+        break;
+      default :
+        printf("\nVotre choix n'est pas valide...reaffichage du menu principal...\n" );
+        break;
+      }
     display(l);
   }
 
   destruct(l);
+  free(chaine);
 }
