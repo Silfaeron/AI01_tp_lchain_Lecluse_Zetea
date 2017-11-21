@@ -3,3 +3,4 @@
 /rapport/*.gz
 /rapport/*.toc
 *.o
+.DS_Store
