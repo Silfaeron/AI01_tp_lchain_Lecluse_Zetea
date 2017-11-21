@@ -106,10 +106,13 @@ int main(int argc, char const *argv[]){
           printf("\nLa liste étant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 4 :
-        if(askPos(countElements(l->head), &pos) == 1){
-          printf("\nSuppression en cours...\n");
-          removeElement(l, pos);
-        }else printf("\nPosition non valide, retour au menu principal...\n");
+        if(!is_list_empty(l)){
+          if(askPos(countElements(l->head), &pos) == 1){
+            printf("\nSuppression en cours...\n");
+            removeElement(l, pos);
+          }else printf("\nPosition non valide, retour au menu principal...\n");
+        }else
+          printf("\nLa liste étant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 5 :
         printf("\nTri en cours...\n" );

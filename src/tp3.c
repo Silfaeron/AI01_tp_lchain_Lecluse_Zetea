@@ -158,17 +158,17 @@ int insert_after_position(List *list, char *str, int p) {
 
 int removeElement (List *list, int p){ // Permet de supprimer le nombre à l'indice p donnée
 	if(!is_list_empty(list) && (p <= countElements(list->head))){ // on vérifie que la liste n'est pas vide et que l'indice est bien inférieur au nombre de nombres présents dans la liste
-		if(p-1 == 0){ // on distingue le cas où on veut supprimer le premier nombre
+		if(p == 0){ // on distingue le cas où on veut supprimer le premier nombre
 			Element *toDel = list->head; // le premier élément du nombre à supprimer
-			Element *endDel = goToNumber(list->head, p); // le dernier élément du nombre à supprimer, soit l'élément portant '/' en data
+			Element *endDel = goToNumber(list->head, 1); // le dernier élément du nombre à supprimer, soit l'élément portant '/' en data
 
 			list->head = endDel->next;
 			endDel->next = NULL; // va permettre d'employer freeElements pour free facilement les éléments du nombre
 
 			freeElements(toDel);
 			return 0;
-		}else if(p == countElements(list->head)){ // on distingue le cas où on veut supprimer le dernier nombre
-			Element *pred = goToNumber(list->head, p-1); // le dernier élément du nombre se trouvant avant le nombre à supprimer
+		}else if(p == countElements(list->head)-1){ // on distingue le cas où on veut supprimer le dernier nombre
+			Element *pred = goToNumber(list->head, p); // le dernier élément du nombre se trouvant avant le nombre à supprimer
 			Element *toDel = pred->next;
 
 			list->tail = pred;
@@ -179,9 +179,9 @@ int removeElement (List *list, int p){ // Permet de supprimer le nombre à l'ind
 		}
 		// Enfin on arrive ici si le nombre n'est ni au début ni à la fin de la liste
 		// la signification des variables est donné plus haut...
-		Element *pred = goToNumber(list->head, p-1);
+		Element *pred = goToNumber(list->head, p);
 		Element *toDel = pred->next;
-		Element *endDel = goToNumber(list->head, p);
+		Element *endDel = goToNumber(list->head, p+1);
 
 		pred->next = endDel->next;
 		endDel->next = NULL;
