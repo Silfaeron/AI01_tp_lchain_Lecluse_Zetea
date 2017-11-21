@@ -143,10 +143,8 @@ int insert_after_position(List *list, char *str, int p) {
 			insert_begining_list(list, str);
 			return 0;
 		} else {  // Sinon on insère "au milieu" de la liste
-			Element *current = malloc(sizeof(Element));
-			Element *temp = malloc(sizeof(Element));
-			current = goToNumber(list->head, p);
-			temp = current->next;  // On stoque l'élément qui sera le suivant de celui qu'on veut insérer
+			Element *current = goToNumber(list->head, p);
+			Element *temp = current->next;  // On stoque l'élément qui sera le suivant de celui qu'on veut insérer
 
 			Element *new = cutNumber(str, 0);  // On découpe le nombre
 
