@@ -50,7 +50,7 @@ int getChoice(){ // Permet d'avoir une saisie correcte quant au choix de l'utili
 // Cette fonction permet de récupérer la position que l'utilisateur veut indiquer
 // Ici n est le nombre de nombres dans la liste
 int askPos(int n, int *p){
-  printf("\nVeuillez indiquer la position souhaitee : ");
+  printf("\nVeuillez indiquer la position souhaitée : ");
   *p = getChoice();
   if(*p == -1) return 0; // l'input n'est pas valide, la saisie est invalidee
 
@@ -69,28 +69,28 @@ int main(int argc, char const *argv[]){
   int pos = 0;
 
   printf("\n\n################### TP Listes Chainees ###################\n\t~~~~ by Thomas LECLUSE & Lucas ZETEA ~~~~\n\n");
-  printf("Une liste a ete initalisee pour vous (elle est vide)....\n");
+  printf("Une liste a été initalisée pour vous (elle est vide)....\n");
 
   while (choice != 0){
     printf("\n\t---Menu principal---\n\t\t"\
-        "1 - ajouter un nombre en debut de liste\n\t\t" \
+        "1 - ajouter un nombre en début de liste\n\t\t" \
         "2 - ajouter un nombre en fin de liste\n\t\t" \
-        "3 - ajouter un nombre a une certaine position\n\t\t" \
-        "4 - supprimer le nombre a une certaine position\n\t\t" \
+        "3 - ajouter un nombre à une certaine position\n\t\t" \
+        "4 - supprimer le nombre à une certaine position\n\t\t" \
         "5 - trier la liste par ordre croissant\n\t\t" \
         "6 - afficher l'état actuel de la liste\n\t\t" \
-        "7 - detruire la liste\n\t\t" \
+        "7 - détruire la liste\n\t\t" \
         "0 - quitter\n\n\tVotre choix : ");
 
     choice = getChoice();
 
     switch(choice) {
       case 0 :
-        printf("\nArret en cours...affichage de l'etat puis destruction de la liste....\n");
+        printf("\nArrêt en cours...affichage de l'état puis destruction de la liste....\n");
         break;
       case 1 :
         insert_begining_list(l, getInput());
-        printf("\nInsertion en debut de liste...\n");
+        printf("\nInsertion en début de liste...\n");
         break;
       case 2 :
         insert_end_list(l, getInput());
@@ -103,7 +103,7 @@ int main(int argc, char const *argv[]){
             printf("\nInsertion en cours...\n");
           }else printf("Position non valide, retour au menu principal...\n");
         }else
-          printf("\nLa liste etant vide, ce choix n'est pas possible pour le moment...\n");
+          printf("\nLa liste étant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 4 :
         if(askPos(countElements(l->head), &pos) == 1){
@@ -116,10 +116,10 @@ int main(int argc, char const *argv[]){
         sort(l);
         break;
       case 6 :
-        printf("\nEtat de la liste :\n" );
+        printf("\nÉtat de la liste :\n" );
         break;
       case 7 :
-        printf("\nDestruction de la liste...retour a l'etat initial...\n" );
+        printf("\nDestruction de la liste...retour a l'état initial...\n" );
         destruct(l);
         l = malloc(sizeof(List));
         initialize(l);
