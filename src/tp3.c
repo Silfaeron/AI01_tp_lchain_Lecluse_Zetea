@@ -75,7 +75,7 @@ int countElementsOfNumber(Element *e) {  // Permet de compter de combien d'élé
 char *reconstruct(Element *e) {  // Reconstruit un nombre en chaîne de caractère à partir de ses éléments
 	int taille = countElementsOfNumber(e);  // On compte le nombre d'éléments qui représentent ce nombre
 
-	char *res = malloc(sizeof(taille)*5);
+	char *res = malloc(sizeof(char)*(taille*5));
 
 	for (int i = 0; i < taille*5; i++)
 	{
