@@ -54,7 +54,7 @@ int askPos(int n, int *p){
   *p = getChoice();
   if(*p == -1) return 0; // l'input n'est pas valide, la saisie est invalidee
 
-  if(*p > n || *p < 0) return 0; // si la position n'est pas valide, la saisie est invalidee
+  if(*p > n-1 || *p < 0) return 0; // si la position n'est pas valide, la saisie est invalidee
 
   return 1;
 }

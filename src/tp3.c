@@ -229,7 +229,7 @@ int sort(List *list) {
 
 			if (strncmp(e2, "\0", 1) != 0) {  // e2 peut etre vide si on est à la fin de la liste.
 				if (compare(e1, e2) == 1) {  // Le premier > au deuxième, on les inverse
-					removeElement(list, j+2);
+					removeElement(list, j+1);
 					insert_after_position(list, e2, j);
 				}
 			}
