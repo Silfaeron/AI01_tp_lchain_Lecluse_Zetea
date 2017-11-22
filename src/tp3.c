@@ -166,6 +166,9 @@ int removeElement (List *list, int p){ // Permet de supprimer le nombre à l'ind
 			endDel->next = NULL; // va permettre d'employer freeElements pour free facilement les éléments du nombre
 
 			freeElements(toDel);
+
+			if (countElements(list->head) == 0) list->tail = list->head;  // Dans le cas où nous avons supprimé le dernier élément
+
 			return 0;
 		}else if(p == countElements(list->head)-1){ // on distingue le cas où on veut supprimer le dernier nombre
 			Element *pred = goToNumber(list->head, p); // le dernier élément du nombre se trouvant avant le nombre à supprimer

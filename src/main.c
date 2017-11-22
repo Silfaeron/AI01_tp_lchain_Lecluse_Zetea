@@ -110,13 +110,20 @@ int main(int argc, char const *argv[]){
           if(askPos(countElements(l->head), &pos) == 1){
             printf("\nSuppression en cours...\n");
             removeElement(l, pos);
+            if (is_list_empty(l)) {
+              destruct(l);
+              l = malloc(sizeof(List));
+              initialize(l);
+            }
           }else printf("\nPosition non valide, retour au menu principal...\n");
         }else
           printf("\nLa liste étant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 5 :
-        printf("\nTri en cours...\n" );
-        sort(l);
+        if(!is_list_empty(l)){
+          printf("\nTri en cours...\n" );
+          sort(l);
+        } else printf("\nLa liste étant vide, ce choix n'est pas possible pour le moment...\n");
         break;
       case 6 :
         printf("\nÉtat de la liste :\n" );
