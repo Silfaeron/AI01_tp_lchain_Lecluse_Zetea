@@ -98,7 +98,7 @@ int main(int argc, char const *argv[]){
         break;
       case 3 :
         if(!is_list_empty(l)){
-          if(askPos(countElements(l->head), &pos) == 1){
+          if(askPos(countElements(l->head)+1, &pos) == 1){
             insert_after_position(l, getInput(), pos);
             printf("\nInsertion en cours...\n");
           }else printf("Position non valide, retour au menu principal...\n");
